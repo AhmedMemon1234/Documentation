@@ -2650,10 +2650,11 @@ color: gray;
   .pricing-card {
     width: 100%;
   }
+
   .wrapper{
-    justify-self: center;
     grid-template-columns: repeat(1,1fr);
-    width: 80%;
+    width: 100%;
+    margin-left: 1vw;
 } 
 
 #brand{
