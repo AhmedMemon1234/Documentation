@@ -11,7 +11,7 @@ export default function Contacthero(){
     <h3>Fax : +451 215 215</h3>
     <span><FaFacebook/><FaInstagram/><FaTwitter/><FaLinkedin/></span>
 </div>
-<Image src={"/hero-2-bg-shape-cover.png"} alt='Heropic' width={300} height={100} className='Heropic'/>
+<Image src={"/hero-2-bg-shape-cover.png"} alt='Heropic' width={1000} height={100} className='Heropic'/>
         </div>
     )
 }
