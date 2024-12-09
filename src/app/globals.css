@@ -2653,7 +2653,7 @@ color: gray;
   .wrapper{
     justify-self: center;
     grid-template-columns: repeat(1,1fr);
-    width: 100vw;
+    width: 100%;
 } 
 
 #brand{

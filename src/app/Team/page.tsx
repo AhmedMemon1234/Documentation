@@ -5,55 +5,55 @@ const TeamCards = () => {
   const teamMembers = [
     {
       id: 1,
-      image: 'media (3).png', // Replace with your image path
+      image: '/media (3).png', // Replace with your image path
       name: 'Username 1',
       profession: 'Profession 1',
     },
     {
       id: 2,
-      image: 'media (4).png', // Replace with your image path
+      image: '/media (4).png', // Replace with your image path
       name: 'Username 2',
       profession: 'Profession 2',
     },
     {
       id: 3,
-      image: 'media (5).png', // Replace with your image path
+      image: '/media (5).png', // Replace with your image path
       name: 'Username 3',
       profession: 'Profession 3',
     },
     {
       id: 4,
-      image: 'media (6).png', // Replace with your image path
+      image: '/media (6).png', // Replace with your image path
       name: 'Username 3',
       profession: 'Profession 3',
     },
     {
       id: 5,
-      image: 'media (7).png', // Replace with your image path
+      image: '/media (7).png', // Replace with your image path
       name: 'Username 3',
       profession: 'Profession 3',
     },
     {
       id: 6,
-      image: 'media (8).png', // Replace with your image path
+      image: '/media (8).png', // Replace with your image path
       name: 'Username 3',
       profession: 'Profession 3',
     },
     {
       id: 7,
-      image: 'media.png', // Replace with your image path
+      image: '/media.png', // Replace with your image path
       name: 'Username 3',
       profession: 'Profession 3',
     },
     {
       id: 8,
-      image: 'team-1-user-2.jpg', // Replace with your image path
+      image: '/team-1-user-2.jpg', // Replace with your image path
       name: 'Username 3',
       profession: 'Profession 3',
     },
     {
       id: 9,
-      image: 'team-1-user-3.jpg', // Replace with your image path
+      image: '/team-1-user-3.jpg', // Replace with your image path
       name: 'Username 3',
       profession: 'Profession 3',
     },

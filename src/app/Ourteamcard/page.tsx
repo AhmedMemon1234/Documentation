@@ -6,19 +6,19 @@ const TeamCards = () => {
   const teamMembers = [
     {
       id: 1,
-      image: 'media.png', // Replace with your image path
+      image: '/media.png', // Replace with your image path
       name: 'Username 1',
       profession: 'Profession 1',
     },
     {
       id: 2,
-      image: 'media (1).png', // Replace with your image path
+      image: '/media (1).png', // Replace with your image path
       name: 'Username 2',
       profession: 'Profession 2',
     },
     {
       id: 3,
-      image: 'media (2).png', // Replace with your image path
+      image: '/media (2).png', // Replace with your image path
       name: 'Username 3',
       profession: 'Profession 3',
     },
