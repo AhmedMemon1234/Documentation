@@ -67,7 +67,7 @@ const TeamCards = () => {
         {teamMembers.map((member) => (
           <div key={member.id} className="team-card">
 <Image
-  src={`/${member.image}`} // Ensure this matches the file structure in your public folder
+  src={`${member.image}`} // Ensure this matches the file structure in your public folder
   alt={member.name}
   width={200}
   height={100}
