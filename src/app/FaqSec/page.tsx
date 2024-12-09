@@ -19,7 +19,7 @@ export default function FAQs() {
             </div>
           ))}
         </div>
-        <p className="faq-contact">Haven't got your answer? Contact our support</p>
+        <p className="faq-contact">Haven&apos;t got your answer? Contact our support</p>
       </div>
     );
   }

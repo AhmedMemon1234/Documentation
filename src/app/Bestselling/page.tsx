@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Bestsell() {
     const productImages = [
       "/women1.png", // First card
@@ -20,9 +22,11 @@ export default function Bestsell() {
           {productImages.map((image, index) => (
             <div className="card" key={index}>
               <div className="image-wrapper">
-                <img
+                <Image
                   src={image} // Dynamically load image
                   alt={`Product ${index + 1}`} // Dynamic alt text
+                  width={200}
+                  height={100}
                   className="product-image"
                 />
               </div>

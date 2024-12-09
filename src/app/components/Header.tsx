@@ -32,7 +32,7 @@ export default function Header(){
                 <li><a href="/">Home</a></li>
                 <li className="Shop"><a href="/ShopSection">Shop <BiDownArrowAlt className="Arrowicon"/></a></li>
                 <li><a href="/About">About</a></li>
-                <li><a href="/Team">Blog</a></li>
+                <li><a href="/Meetteam">Blog</a></li>
                 <li><a href="/Contact">Contact</a></li>
                 <li><a href="/SimplePrice">Pages</a></li>
             </ul>

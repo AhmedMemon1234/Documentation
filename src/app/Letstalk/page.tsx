@@ -6,8 +6,8 @@ export default function CTA() {
       <div className="cta-arrow2">
         <Image src="/Arrow 2.png" alt="Arrow" width={40} height={40} />
       </div>
-      <p className="cta-subheading2">WE CAN'T WAIT TO MEET YOU</p>
-      <h1 className="cta-heading2">Let's Talk</h1>
+      <p className="cta-subheading2">WE CAN&apos;T WAIT TO MEET YOU</p>
+      <h1 className="cta-heading2">Let&apos;s Talk</h1>
       <button className="cta-button2">Try it free now</button>
     </div>
   );

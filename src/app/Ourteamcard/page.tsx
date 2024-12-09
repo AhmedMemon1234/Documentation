@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
@@ -28,7 +29,7 @@ const TeamCards = () => {
       <div className="team-card-grid">
         {teamMembers.map((member) => (
           <div key={member.id} className="team-card">
-            <img src={member.image} alt={member.name} className="team-card-image" />
+            <Image src={member.image} alt={member.name} width={300} height={100} className="team-card-image" />
             <h3 className="team-card-name">{member.name}</h3>
             <p className="team-card-profession">{member.profession}</p>
             <div className="team-card-icons">

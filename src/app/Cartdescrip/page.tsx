@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function ProductDescription() {
     return (
         <div className="Parentpro">
@@ -5,7 +7,7 @@ export default function ProductDescription() {
       <div className="product-description-container">
         {/* Left Section: Image */}
         <div className="description-image">
-          <img src="/col-md-4 (2).png" alt="Room Setup" />
+          <Image src="/col-md-4 (2).png" alt="Room Setup" width={300} height={100}/>
         </div>
   
         {/* Middle Section: Paragraphs */}
