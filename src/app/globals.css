@@ -2680,7 +2680,9 @@ display:none;
   .pricing-card h1 {
     font-size: 36px;
   }
-
+.pricing-section{
+  margin-top: 70px;
+}
   .pricing-cards {
     flex-direction: column;
     gap: 30px;
