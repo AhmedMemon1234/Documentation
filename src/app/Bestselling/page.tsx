@@ -25,8 +25,8 @@ export default function Bestsell() {
                 <Image
                   src={image} // Dynamically load image
                   alt={`Product ${index + 1}`} // Dynamic alt text
-                  width={200}
-                  height={100}
+                  width={1000}
+                  height={1000}
                   className="product-image"
                 />
               </div>

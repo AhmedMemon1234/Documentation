@@ -23,8 +23,8 @@ export default function Shop() {
                     <Image
                         src="/card-item.png"
                         alt="Cloths"
-                        width={300}
-                        height={300}
+                        width={205}
+                        height={223}
                         className="Cardimg"
                     />
                     <div className="CardOverlay">
@@ -36,8 +36,8 @@ export default function Shop() {
                     <Image
                         src="/col-md-4 (1).png"
                         alt="Cloths"
-                        width={300}
-                        height={300}
+                        width={205}
+                        height={223}
                         className="Cardimg"
                     />
                     <div className="CardOverlay">
@@ -49,8 +49,8 @@ export default function Shop() {
                     <Image
                         src="/card-item (1).png"
                         alt="Cloths"
-                        width={300}
-                        height={300}
+                        width={205}
+                        height={223}
                         className="Cardimg"
                     />
                     <div className="CardOverlay">
@@ -62,8 +62,8 @@ export default function Shop() {
                     <Image
                         src="/card-item (2).png"
                         alt="Cloths"
-                        width={300}
-                        height={300}
+                        width={205}
+                        height={223}
                         className="Cardimg"
                     />
                     <div className="CardOverlay">
@@ -75,8 +75,8 @@ export default function Shop() {
                     <Image
                         src="/card-item (3).png"
                         alt="Cloths"
-                        width={300}
-                        height={300}
+                        width={205}
+                        height={223}
                         className="Cardimg"
                     />
                     <div className="CardOverlay">

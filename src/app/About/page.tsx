@@ -30,7 +30,7 @@ export default function About() {
         {/* Hamburger Menu */}
         <button
           id="toggleOpen"
-          className="lg:hidden"
+          className="-z-50 lg:hidden"
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
