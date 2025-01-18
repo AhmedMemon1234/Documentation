@@ -1,0 +1,17 @@
+API Integration Process
+
+First, I installed Sanity in my project. Then, I defined the schema. After that,
+I created the importSanityData.mjs file and added the API key there. I included fields such as product.name, product.description, etc.
+in the file. Then, I ran npm run import-data in the terminal to fetch data from Sanity.
+Finally, I wrote the query to fetch the data in the frontend and displayed it in the form of card
+
+Adjustments in Schema
+
+I added some additional fields, such as slug for dynamic routing.
+Additionally, I made a change to the slogan field where the previous value had "slogan" written.
+
+Migration Steps and Tools Used
+
+I used the API provided by Sir and imported the data into Sanity. Then, by using a GROQ query,
+I fetched the data and displayed it on the frontend as product cards.
+The tools I used include Readymade UI, ChatGPT, CoPilot, and AI extensions, among others.
