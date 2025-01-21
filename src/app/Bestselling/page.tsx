@@ -2,9 +2,8 @@
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
-import { Types } from "../Type";
 
-export default function Bestsell({ product }: { product: Types }) {
+export default function Bestsell({ product }: { product: any }) {
   return (
     <div className="product-section">
       <div className="product-list hover:scale-105 transition-transform duration-300 shadow-sm">
