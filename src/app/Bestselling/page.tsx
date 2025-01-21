@@ -1,9 +1,23 @@
-"use client";
+"use client"; // Make sure it's marked as a client component
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Bestsell({ product }: { product: any }) {
+interface Product {
+  name: string;
+  image: string;
+  description: string;
+  discountPercentage: number;
+  rating: number;
+  isNew: boolean;
+  slogan?: string;
+  slug: string;
+  priceWithoutDiscount: number;
+  price: number;
+}
+
+// Define Bestsell as a functional component that expects a product prop
+export default function Bestsell({ product }: { product: Product }) {
   return (
     <div className="product-section">
       <div className="product-list hover:scale-105 transition-transform duration-300 shadow-sm">
