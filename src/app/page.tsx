@@ -15,14 +15,11 @@ export default function Home(){
   const fetchData = async () => {
     const query = `*[_type == "product"] | order(_createdAt asc){
       name,
-      description,
       price,
       priceWithoutDiscount,
       discountPercentage,
       image,
-      rating,
       slogan,
-      isNew,
       "slug":slug.current
     }`
     const data = await client.fetch(query);
