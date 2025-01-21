@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 // Define Bestsell as a functional component that expects a product prop
-export default function Bestsell({ product }: { product: ProductTypes }) {
+export default function Bestsell({ product }:any) {
   return (
     <div className="product-section">
       <div className="product-list hover:scale-105 transition-transform duration-300 shadow-sm">
