@@ -3,21 +3,8 @@ import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
 
-interface Product {
-  name: string;
-  image: string;
-  description: string;
-  discountPercentage: number;
-  rating: number;
-  isNew: boolean;
-  slogan?: string;
-  slug: string;
-  priceWithoutDiscount: number;
-  price: number;
-}
-
 // Define Bestsell as a functional component that expects a product prop
-export default function Bestsell({ product }: { product: Product }) {
+export default function Bestsell({ product }: { product: ProductTypes }) {
   return (
     <div className="product-section">
       <div className="product-list hover:scale-105 transition-transform duration-300 shadow-sm">

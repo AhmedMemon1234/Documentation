@@ -42,7 +42,7 @@ export default function Home(){
         </div>
 <div className="flex-wrap flex justify-center">
 {
-  products.slice(0,8).map((product:any) => (
+  products.slice(0,8).map((product:ProductTypes) => (
     <Bestsell key={product.slug} product={product}/>
   ))
 }
