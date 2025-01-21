@@ -4,11 +4,16 @@ import Link from "next/link";
 interface Product {
   name: string;
   image: string;
+  description:string;
+  discountPercentage:number;
+  rating:number;
+  isNew:boolean;
   slogan?: string;
   slug: string;
   priceWithoutDiscount: number;
   price: number;
 }
+
 export default function Bestsell({ product }: { product: Product }) {
 
     return (
