@@ -1,0 +1,56 @@
+Day 2 Activity : MarketPlace Technical Planning.
+
+1.Frontend Requirements: 
+1.User Friendly Responsive Site.
+2.General Ecommerce Products For All Genders.
+3.Pages Like: Home About Shop Team etc...
+4.Languages Like Next.JS : As i’m using NEXT.JS which helps In Good SEO because it is using SSR (Server Side Rendering) which is very fast and good for SEO.
+2.Sanity CMS As Backend : 
+1.Use Sanity CMS to handle product data dynamically, User info, Order details.
+2.Fetching Data using Grooq Query to display data in UI also handle Order Details, User Info.
+3.Api Setup (Third Party):
+1.Using Api’s for shipment tracking, payment gateaway, and other backend requirements 
+2.Using Api for data fetch in sanity then render it on UI.
+3.For Example: A Person has a Api with data like {name:anyname, title:anytitle, description:any etc} now we use this Api to fetch data in sanity then we write a query in our code to fetch it and display it.
+4.Dynamic Routing:
+1.Using Dynamic routing to auto routing every product using slug which catch the product title like [Black Trouser For Men] and make Slug like this [black-trouser-for-men].
+2.You can use [id] or [name] for this as well like in url its like productdetails/1 /2 the id and name like this productdetails/blacktrouser /pinksuit 
+3.Which One is Best? : As Our Sir taught us SLUG is best for all others as it is good for SEO as well it generates like tags which increases the chances to reach high rank in SEO.
+5.General eCommerce Example: 
+1.EndPoint Name: /shop
+2.Explaination: Now if you go on route /shop it fetch all the data from Api or if you use Sanity so it fetch all data from Sanity.
+3.Response: If you use Api or Sanity & in your code you write like this {product.name},{product.id} etc the data fetched from there.
+
+6.Data Schema:
+1.Even if you have Api you still have to define the Schema under sanity folder
+2.For Example Data Schema (Customer,Order): {userid,username,userphone,useremail}.
+3.For Example Data Schema (Product,ProductDetails): {productid,productname,productdesc,productquantity,productimage,productprice}.
+
+7.Endpoints:
+1.Endpoint Name: /products
+Method: GET
+Description: It fetch all product data from SANITY CMS
+FOR EXAMPLE:  Productdetails{id,name,description,price,quantity,sizes,colors}.
+
+2.Endpoint Name: /orders
+Method: POST
+Description: It create the user order in SANITY CMS
+FOR EXAMPLE: Customer Info, id, name, phone,
+
+3.Endpoint Name: /shipment
+Method: GET
+Description: Tracking system for products from third party Api.
+FOR EXAMPLE: Shipment ID, order ID, status, expected delivery date.
+
+
+8.Payment Method:
+1.WORLDWIDE: Using Payment Methods Like Stripe, Paypal Etc..
+2.IN PAKISTAN: In Pakistan there are some payment methods like : Alfa Payment Gateaway, HBLPay Checkout HBL, JazzCash Merchant, EasyPaisa Merchant etc...
+
+9.SIGN IN & SIGN UP (Authentication): 
+1.As we have’nt learned yet about Authentication so i will update it later.
+Presented By : 
+Ahmed Memon.
+Sunday 9-12 AM Batch.
+Roll Number: 00483775.
+
