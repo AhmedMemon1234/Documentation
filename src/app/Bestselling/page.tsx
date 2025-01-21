@@ -13,7 +13,6 @@ interface Product {
   priceWithoutDiscount: number;
   price: number;
 }
-
 export default function Bestsell({ product }: { product: Product }) {
 
     return (
