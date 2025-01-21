@@ -9,7 +9,7 @@ export default function Hero(){
                 <h1 className="Summer">Summer 2020</h1>
                 <h1 className="Collection">NEW COLLECTION</h1>
                 <h4 className="paragraph">We know how large objects will act. but things on a small scale</h4>
-                <button className="Shopnow">SHOP NOW</button>
+                <button className="Shopnow"><a href="/ShopSection">SHOP NOW</a></button>
             </div>
         </div>
     )

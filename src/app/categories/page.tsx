@@ -1,13 +1,18 @@
-"use client";
+'use client'; 
+
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import Header from "../components/Header";
 
-export default function Bestproduct() {
+export default function Categories() {
   const [products, setProducts] = useState<any[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
 
+  // Fetch data from Sanity
   const fetchData = async () => {
     const query = `*[_type == "product"] | order(_createdAt asc){
       name,
@@ -20,9 +25,24 @@ export default function Bestproduct() {
       slogan,
       isNew,
       "slug":slug.current
-  }[8..21]`;
+    }`;
     const data = await client.fetch(query);
     setProducts(data);
+    setFilteredProducts(data); // Initialize filteredProducts with all products
+  };
+
+  // Filter products based on the search term
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const term = event.target.value;
+    setSearchTerm(term);
+    if (term) {
+      const filtered = products.filter((product) =>
+        product.name.toLowerCase().includes(term.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts(products); // If search is empty, show all products
+    }
   };
 
   useEffect(() => {
@@ -30,14 +50,26 @@ export default function Bestproduct() {
   }, []);
 
   return (
+    <>
+    <Header/>
     <div className="product-section">
+      <h1 className="text-center text-4xl font-semibold -mt-12 lg:text-6xl">Categories</h1>
+      <div className="text-center">
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={handleSearch}
+        placeholder="Search products"
+        className="mt-10 shadow-lg border-2 border-black p-3 w-full" // You can style this as needed
+      />
+      </div>
       <div className="flex-wrap flex justify-center gap-[12px] p-[20px]">
-        {products.map((product, index) => (
+        {filteredProducts.map((product, index) => (
           <div className="card" key={index}>
             <Link href={`/productdetails/${product.slug}`}>
               <Image
-                src={urlFor(product.image)} // Dynamically load image
-                alt={product.name} // Dynamic alt text
+                src={urlFor(product.image)}
+                alt={product.name}
                 width={500}
                 height={300}
                 className="product-image"
@@ -62,11 +94,10 @@ export default function Bestproduct() {
       </div>
       <div className="flex items-center justify-center gap-2 p-4">
         <button className="py-2 px-4 rounded bg-gray-200 text-gray-500">First</button>
-        <button className="py-2 px-4 rounded hover:bg-gray-100 text-gray-500">1</button>
-        <button className="py-2 px-4 rounded bg-blue-500 text-white">2</button>
-        <button className="py-2 px-4 rounded hover:bg-gray-100 text-gray-500">3</button>
-        <button className="py-2 px-4 rounded bg-gray-200 text-gray-500">Next</button>
+        <button className="py-2 px-4 rounded bg-blue-500 text-gray-200">1</button>
+        <button className="py-2 px-4 rounded hover:bg-gray-100 bg-gray-200">Soon...</button>
       </div>
     </div>
+    </>
   );
 }
