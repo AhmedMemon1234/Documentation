@@ -1,0 +1,23 @@
+Day-5 Testing And Backend Refinement - [Bandage]
+
+1.Test Cases Executed And Their Results
+
+I executed many websites test SEO, or Security or Performance it gives positive and good marks
+at all i use like GTMETRIX,WEBPAGETEST etc.
+
+2.Performance Optimization Steps Taken
+
+I increase its performance by using SSR and best practices and 
+websites like LightHouse give me About 90% + SEO Rates And
+Also Good Rates in Performance optimization.
+
+3.Security Measures Implement
+
+I use best practices for security like i store my sensitive data on .env.local file 
+and i test security test also as it gives low chances of any risk data leak etc.
+
+4.Challenges Face And Resolutions Applied
+
+I faced many challenges in this Step but by the help of Our honorable Sir's
+i easily tackle the challenge as well i have an challenge of security like type default type
+error from typescript i put error handling try catch on it so i resolved it etc etc...
