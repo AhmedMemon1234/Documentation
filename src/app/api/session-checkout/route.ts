@@ -20,7 +20,7 @@ export async function POST(req: Request) {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             mode: "payment",
-            success_url: "http://localhost:3000/success",
+            success_url: "https://final-hackathon-3-qt34.vercel.app/success",
             line_items: [
                 ...cart.map((item: any) => ({
                     price_data: {
