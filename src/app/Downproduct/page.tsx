@@ -1,12 +1,15 @@
 "use client";
-import { client } from "@/sanity/lib/client";
+import { useState, useEffect } from "react";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
-import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { client } from "@/sanity/lib/client";
 
 export default function Bestproduct() {
   const [products, setProducts] = useState<any[]>([]);
+  const { isSignedIn } = useUser(); // Get the user's sign-in status
+  const router = useRouter();
 
   const fetchData = async () => {
     const query = `*[_type == "product"] | order(_createdAt asc){
@@ -20,7 +23,7 @@ export default function Bestproduct() {
       slogan,
       isNew,
       "slug":slug.current
-  }[8..21]`;
+    }[8..21]`;
     const data = await client.fetch(query);
     setProducts(data);
   };
@@ -28,35 +31,52 @@ export default function Bestproduct() {
   useEffect(() => {
     fetchData();
   }, []);
+ useEffect(()=>{
+  if(isSignedIn){
+    const Storedslug = localStorage.getItem("pendingslug")
+    if(Storedslug){
+      localStorage.removeItem("pendingslug")
+      router.push(`/productdetails/${Storedslug}`)
+    }
+  }
+ },[isSignedIn])
+  const handleProductClick = (slug: string) => {
+    if (!isSignedIn) {
+      // If not signed in, redirect to login page
+      localStorage.setItem("pendingslug",slug)
+      router.push("/login");
+    } else {
+      // If signed in, redirect to the product details page
+      router.push(`/productdetails/${slug}`);
+    }
+  };
 
   return (
     <div className="product-section">
       <div className="flex-wrap flex justify-center gap-[12px] p-[20px]">
         {products.map((product, index) => (
-          <div className="card" key={index}>
-            <Link href={`/productdetails/${product.slug}`}>
-              <Image
-                src={urlFor(product.image)} // Dynamically load image
-                alt={product.name} // Dynamic alt text
-                width={500}
-                height={300}
-                className="product-image"
-              />
-              <div className="content">
-                <h3 className="text-2xl font-semibold text-center">{product.name}</h3>
-                <p className="text-gray-500 text-center">{product.slogan}</p>
-                <div className="price-wrapper">
-                  <span className="old-price">${product.priceWithoutDiscount}</span>
-                  <span className="new-price">${product.price}</span>
-                </div>
-                <div className="color-options">
-                  <span className="color blue"></span>
-                  <span className="color green"></span>
-                  <span className="color orange"></span>
-                  <span className="color brown"></span>
-                </div>
+          <div className="card" key={index} onClick={() => handleProductClick(product.slug)}>
+            <Image
+              src={urlFor(product.image)} // Dynamically load image
+              alt={product.name} // Dynamic alt text
+              width={500}
+              height={300}
+              className="product-image"
+            />
+            <div className="content">
+              <h3 className="text-2xl font-semibold text-center">{product.name}</h3>
+              <p className="text-gray-500 text-center">{product.slogan}</p>
+              <div className="price-wrapper">
+                <span className="old-price">${product.priceWithoutDiscount}</span>
+                <span className="new-price">${product.price}</span>
               </div>
-            </Link>
+              <div className="color-options">
+                <span className="color blue"></span>
+                <span className="color green"></span>
+                <span className="color orange"></span>
+                <span className="color brown"></span>
+              </div>
+            </div>
           </div>
         ))}
       </div>

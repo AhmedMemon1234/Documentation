@@ -6,6 +6,37 @@ import { v4 as uuidv4 } from "uuid";
 import Header from "../components/Header";
 import { FaCreditCard, FaHome, FaUserCircle, FaPhoneAlt, FaMapMarkedAlt } from 'react-icons/fa';
 import { toast, ToastContainer } from "react-toastify";
+import {loadStripe} from "@stripe/stripe-js"
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_API_KEY! || '')
+
+const handleCheckout = async () => {
+  const stripe = await stripePromise;
+  if(!stripe){
+    console.log('Failed To Load Stripe')
+    return;
+  }
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]")
+
+  if(cart.length === 0){
+    console.log("cart is empty")
+    return;
+  }
+
+  const response = await fetch("/api/session-checkout",{
+   method : "POST",
+   headers : {"Content-Type" : "application/json" },
+   body: JSON.stringify({cart})
+  })
+
+  if(!response.ok){
+    console.error("Error in Api Response", await response.text())
+    return
+  }
+
+  const session = await response.json()
+  await stripe.redirectToCheckout({sessionId :session.id})
+}
 
 const CombinedForm = () => {
   const [customerInfo, setCustomerInfo] = useState({
@@ -14,7 +45,8 @@ const CombinedForm = () => {
     phone: "",
     address: "",
   });
-
+  
+   
   const getAd1 = useRef<HTMLInputElement>(null);
   const getCity = useRef<HTMLInputElement>(null);
   const getProvince = useRef<HTMLInputElement>(null);
@@ -48,9 +80,6 @@ const CombinedForm = () => {
     setCustomerInfo({ ...customerInfo, [name]: value });
   };
 
-  const handlePaymentMethodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setPaymentMethod(e.target.value as "card" | "cod");
-  };
 
   const fetchOrderStatus = async (trackingId: string) => {
     try {
@@ -101,7 +130,7 @@ const CombinedForm = () => {
     };
 
     try {
-      toast.success("Submitting your order and shipment details...");
+      toast.success("Redirecting You To Payment Page Please Wait...");
 
       await CheckoutBack([], customerInfo); // Custom backend logic for order placement
 
@@ -117,13 +146,7 @@ const CombinedForm = () => {
       setShipmentDetails(data);
       setOrderPlaced(true);
 
-      // Handle payment
-      if (paymentMethod === "card") {
-        toast.success("Payment Successful!");
-      } else {
-        toast.success("Order Placed. Please pay upon delivery.");
-      }
-
+     
       localStorage.removeItem("cart");
     } catch (error) {
       console.error("Error submitting the form", error);
@@ -133,7 +156,6 @@ const CombinedForm = () => {
 
   return (
     <>
-      <Header />
       <ToastContainer />
       <div className="max-w-3xl mt-20 mx-auto p-8 bg-white shadow-2xl rounded-lg">
         <h2 className="text-6xl font-semibold text-center text-blue-600 mb-6">Checkout</h2>
@@ -194,49 +216,6 @@ const CombinedForm = () => {
                 />
               </div>
             </div>
-    
-            {/* Payment Method Selection */}
-            <div className="mb-4">
-              <label htmlFor="paymentMethod" className="block text-gray-700 font-medium mb-2">Payment Method:</label>
-              <select
-                id="paymentMethod"
-                value={paymentMethod}
-                onChange={handlePaymentMethodChange}
-                className="w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
-              >
-                <option value="card">Bank Card</option>
-                <option value="cod">Cash on Delivery</option>
-              </select>
-            </div>
-    
-            {/* Payment Form for Bank Card */}
-            {paymentMethod === "card" && (
-              <div className="mb-4 space-y-4">
-                <label htmlFor="cardDetails" className="block text-gray-700 font-medium mb-2">Enter Card Details:</label>
-                <div className="space-y-4">
-                  <input
-                    type="text"
-                    placeholder="Card Number"
-                    className="w-full border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
-                    required
-                  />
-                  <div className="flex space-x-4">
-                    <input
-                      type="text"
-                      placeholder="Expiry Date"
-                      className="w-1/2 border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
-                      required
-                    />
-                    <input
-                      type="text"
-                      placeholder="CVC"
-                      className="w-1/2 border border-gray-300 rounded-md p-3 focus:ring-2 focus:ring-blue-500 outline-none"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
     
             {/* Shipment Details */}
             <div className="mb-4">
@@ -322,9 +301,10 @@ const CombinedForm = () => {
             <div className="mt-4 text-center">
               <button
                 type="submit"
+                onClick={handleCheckout}
                 className="w-full py-3 bg-blue-600 text-white text-xl font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none"
               >
-                Place Order
+                Payment System
               </button>
             </div>
           </form>

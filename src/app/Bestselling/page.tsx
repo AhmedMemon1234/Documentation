@@ -1,9 +1,23 @@
 "use client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
-import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 export default function Bestsell({ product }: any) {
+  const { isSignedIn } = useUser(); // Get the user's sign-in status
+  const router = useRouter();
+
+  const handleProductClick = () => {
+    if (!isSignedIn) {
+      // If not signed in, redirect to login page
+      router.push("/login");
+    } else {
+      // If signed in, redirect to the product details page
+      router.push(`/productdetails/${product.slug}`);
+    }
+  };
+
   // Validate product data before rendering
   if (!product || !product.slug || !product.image) {
     console.warn("Skipping product due to missing data:", product);
@@ -13,7 +27,7 @@ export default function Bestsell({ product }: any) {
   return (
     <div className="product-section">
       <div className="product-list hover:scale-105 transition-transform duration-300 shadow-sm">
-        <Link href={`/productdetails/${product.slug}`}>
+        <div onClick={handleProductClick}>
           <Image
             src={urlFor(product.image) || "/placeholder.jpg"} // Fallback to placeholder image
             alt={product.name || "Product"}
@@ -37,7 +51,7 @@ export default function Bestsell({ product }: any) {
               <span className="color brown"></span>
             </div>
           </div>
-        </Link>
+        </div>
       </div>
     </div>
   );

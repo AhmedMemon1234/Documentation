@@ -1,12 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaBars, FaCartPlus, FaBandAid, FaHeart } from "react-icons/fa"; // Importing React Icons
 import { GiClothes } from "react-icons/gi";
 
 const DetailsHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0); // Example for cart badge
+  const [cart, setCart] = useState<any[]>([]);
 
+  // Fetch initial cart from localStorage
+  useEffect(() => {
+    const fetchCart = () => {
+      const storedCart = localStorage.getItem("cart");
+      if (storedCart) {
+        setCart(JSON.parse(storedCart));
+      } else {
+        setCart([]);
+      }
+    };
+
+    fetchCart();
+
+    // Listen to changes in localStorage
+    const handleStorageChange = () => {
+      fetchCart();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
   // Toggle hamburger menu
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -28,11 +52,10 @@ const DetailsHeader = () => {
           <Link href="/cartpage">
             <p>
               <FaCartPlus className="text-2xl text-gray-800" />
-              {cartCount > 0 && (
+            
                 <span className="absolute top-0 right-0 text-xs font-bold text-white bg-red-600 rounded-full w-4 h-4 flex items-center justify-center">
-                  {cartCount}
+                  {cart.length}
                 </span>
-              )}
             </p>
           </Link>
           <Link href={"/wishlist"}>
@@ -81,6 +104,7 @@ const DetailsHeader = () => {
           </li>
         </ul>
       </nav>
+      
     </header>
   );
 };

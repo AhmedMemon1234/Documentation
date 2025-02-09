@@ -15,5 +15,9 @@ export type Types = {
     map:any
     isNew:boolean;
     slogan:string;
+    selectedSize: string, // Add selected size
+    selectedColor: string, // Add selected color
+    selectedSpec: string, // Add selected spec (RAM/Storage)
+    selectedGraphicCard: string
   };
   

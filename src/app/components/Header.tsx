@@ -1,20 +1,60 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AiOutlineShoppingCart, AiOutlineHeart } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
-import { BiSupport } from "react-icons/bi"; // Icon for Customer Service
-import { FaCog, FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa"; // Icon for Admin Panel
+import { BiSupport } from "react-icons/bi"; 
+import { FaCog, FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa"; 
+import { UserButton, useUser } from "@clerk/clerk-react"; // Clerk user authentication
+import SearchHeader from "../SearchComponent/page";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user } = useUser(); // Use Clerk's useUser to get user info
+  const [cart,setCart] = useState<any[]>([])
+  const [categories, setCategories] = useState(false)
+
+  const handleCategory = ()=>{
+    setCategories(!categories)
+  }
+
+  useEffect(()=>{
+    
+  const fetchData = ()=>{
+    const storedCart = localStorage.getItem("cart")
+    if(storedCart){
+      setCart(JSON.parse(storedCart))
+    }
+    else{
+      setCart([])
+    }
+  }
+
+  fetchData()
+
+  const HandleupdateCart = ()=>{
+    fetchData()
+  }
+
+  window.addEventListener("storage",HandleupdateCart)
+  
+  return()=>{
+      window.removeEventListener("storage", HandleupdateCart)
+  }
+
+  },[])
+  const handleProductClick = () => {
+    if (!user) {
+      // If the user is not signed in, redirect to login page
+      window.location.href = "/login";
+    }
+  };
 
   return (
+    <>
     <header>
       {/* Top Bar */}
       <div className="bg-[#232B42] text-white text-sm hidden md:block">
         <div className="container mx-auto px-4 py-2 flex justify-between items-center flex-wrap">
-          {/* Left Contact Info */}
           <div className="flex items-center space-x-4 whitespace-nowrap">
             <div className="flex items-center space-x-1">
               <span>📞</span>
@@ -25,11 +65,9 @@ const Header = () => {
               <span>michelle.rivera@example.com</span>
             </div>
           </div>
-          {/* Middle Promo */}
           <div className="text-center flex-grow hidden lg:block">
             Follow Us and get a chance to win 80% off
           </div>
-          {/* Right Social Media */}
           <div className="flex items-center space-x-2 lg:space-x-4 whitespace-nowrap">
             <span>Follow Us:</span>
             <div className="flex space-x-2">
@@ -51,15 +89,14 @@ const Header = () => {
       </div>
 
       {/* Main Navbar */}
-      <div className="bg-white shadow-sm border-b-0"> {/* Removed border */}
-        <div className="container mx-auto py-4 flex items-center justify-between">
-          {/* Left Logo */}
+      <div className="bg-white shadow-sm border-b-0">
+        <div className="container mx-auto py-4 px-4 flex items-center justify-between">
           <div className="text-2xl font-bold text-[#232B42]">
             <Link href="/">Bandage</Link>
           </div>
 
           {/* Desktop Menu */}
-          <nav className="hidden md:hidden lg:flex space-x-6 items-center text-gray-700 overflow-x-auto whitespace-nowrap">
+          <nav className="hidden lg:flex space-x-4 items-center text-gray-700 overflow-x-auto whitespace-nowrap">
             <Link href="/">Home</Link>
             <div className="relative group">
               <Link href={"/ShopSection"}>
@@ -83,43 +120,79 @@ const Header = () => {
               </Link>
             </div>
             <Link href="/About">About</Link>
-            <Link href="/categories">Categories</Link>
+            <div onClick={handleCategory} className="cursor-pointer">Categories</div>
             <Link href="/Meetteam">Blog</Link>
             <Link href="/Contact">Contact</Link>
             <Link href="/SimplePrice">Pages</Link>
             <Link href="/dashboard">Dashboard</Link>
           </nav>
+          {
+  categories && (
+    <div className="w-full sm:w-[35%] bg-gray-50 absolute mt-[365px] z-50 left-1/2 transform -translate-x-1/2 p-2 rounded-lg shadow-lg">
+      {/* Men's Category */}
+      <Link href={"/ClothCategory"}>
+      <div className="w-full p-2 text-center mb-2">
+        <h1 className="text-lg font-semibold text-gray-700">Cloth's Collection</h1>
+        <p className="text-xs text-gray-500 mt-1">Cheap and best looking outfits.</p>
+      </div>
+      </Link>
+      <Link href={"/ElectronicCategory"}>
+      <div className="w-full p-2 text-center mb-2">
+        <h1 className="text-lg font-semibold text-gray-700">Electronic's Category</h1>
+        <p className="text-xs text-gray-500 mt-1">Trendy and elegant fashion of Electronic.</p>
+      </div>
+      </Link>
+      {/* Kids' Category */}
+      <Link href={"/WorkInProgress"}>
+      <div className="w-full p-2 text-center mb-2">
+        <h1 className="text-lg font-semibold text-gray-700">Gadget's Collection</h1>
+        <p className="text-xs text-gray-500 mt-1">Comfortable and stylish Gadget's.</p>
+      </div>
+
+      {/* Electronics Category */}
+      <div className="w-full p-2 text-center mb-2">
+        <h1 className="text-lg font-semibold text-gray-700">Watches Collection</h1>
+        <p className="text-xs text-gray-500 mt-1">Top-quality Watches for you.</p>
+      </div>
+      </Link>
+    </div>
+  )
+}
+
 
           {/* Right Icons */}
           <div className="flex items-center space-x-4 text-[#1E90FF]">
-            <Link href="/login" className="hidden md:block">
-              Login / Register
-            </Link>
-            <button>
+            {/* Login / Register Link */}
+            {!user && (
+              <Link href="/login" className="hidden md:block">
+                Login / Register
+              </Link>
+            )}
+            {user && (
+              <UserButton />
+            )}
+            <button onClick={handleProductClick}>
               <Link href={"/cartpage"}>
                 <AiOutlineShoppingCart className="w-6 h-6" />
+                <h1 className="absolute -mt-10 ml-6">{cart.length}</h1>
               </Link>
             </button>
-            <button>
+            <button onClick={handleProductClick}>
               <Link href={"/wishlist"}>
                 <AiOutlineHeart className="w-6 h-6" />
               </Link>
             </button>
-            <button>
-              <Link href={"/profile"}>
-                <CgProfile className="w-6 h-6" />
-              </Link>
-            </button>
 
+            {/* Admin Panel & Customer Service Icons */}
             <button className="hidden sm:block">
               <Link href="/AdminPanel">
-                <FaCog className="w-6 h-6"/>
+                <FaCog className="w-6 h-6" />
               </Link>
             </button>
 
             <button className="hidden sm:block">
               <Link href="/CustomerService">
-                <BiSupport className="w-6 h-6"/>
+                <BiSupport className="w-6 h-6" />
               </Link>
             </button>
 
@@ -146,32 +219,34 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-white border-t">
-          <nav className="flex flex-col space-y-2 py-4 overflow-y-auto max-h-[60vh]">
-            <Link href="/" className="px-4">Home</Link>
-            <Link href="/ShopSection" className="px-4">Shop</Link>
-            <Link href="/About" className="px-4">About</Link>
-            <Link href="/categories" className="px-4">Categories</Link>
-            <Link href="/Meetteam" className="px-4">Blog</Link>
-            <Link href="/Contact" className="px-4">Contact</Link>
-            <Link href="/SimplePrice" className="px-4">Pages</Link>
-            <Link href="/dashboard" className="px-4">Dashboard</Link>
+    {/* Mobile Menu */}
+{menuOpen && (
+  <div className="md:hidden bg-white border-t z-50 relative">
+    <nav className="flex flex-col space-y-2 py-4 overflow-y-auto max-h-[60vh] z-50">
+      <Link href="/" className="px-4">Home</Link>
+      <Link href="/ShopSection" className="px-4">Shop</Link>
+      <Link href="/About" className="px-4">About</Link>
+      <div onClick={handleCategory} className="cursor-pointer px-4">Categories</div>
+      <Link href="/Meetteam" className="px-4">Blog</Link>
+      <Link href="/Contact" className="px-4">Contact</Link>
+      <Link href="/SimplePrice" className="px-4">Pages</Link>
+      <Link href="/dashboard" className="px-4">Dashboard</Link>
 
-            {/* Mobile Icons for Admin Panel and Customer Service */}
-            <div className="flex space-x-4 px-4 mt-4">
-              <Link href="/AdminPanel">
-                <FaCog className="w-6 h-6" />
-              </Link>
-              <Link href="/CustomerService">
-                <BiSupport className="w-6 h-6" />
-              </Link>
-            </div>
-          </nav>
-        </div>
-      )}
+      {/* Mobile Icons for Admin Panel and Customer Service */}
+      <div className="flex space-x-4 px-4 mt-4">
+        <Link href="/AdminPanel">
+          <FaCog className="w-6 h-6" />
+        </Link>
+        <Link href="/CustomerService">
+          <BiSupport className="w-6 h-6" />
+        </Link>
+      </div>
+    </nav>
+  </div>
+)}
     </header>
+    <SearchHeader/>
+  </>
   );
 };
 

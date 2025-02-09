@@ -1,3 +1,5 @@
+"use client";
+
 import { client } from "@/sanity/lib/client";
 import { Customer } from "../app/customer";
 import { Types } from "../app/Type";
@@ -16,6 +18,7 @@ const CreateCustomerInSanity = async (customerInfo: Customer) => {
     return response;
   } catch (error) {
     console.error("Error creating customer:", error);
+    throw error; // Re-throw the error to handle it in the main function
   }
 };
 
@@ -35,6 +38,10 @@ const CreateOrderInSanity = async (cartData: Types[], customer_id: string) => {
         productprice: item.price,
         productdescription: item.description,
         quantity: item.quantity,
+        selectedSize: item.selectedSize, // Add selected size
+        selectedColor: item.selectedColor, // Add selected color
+        selectedSpec: item.selectedSpec, // Add selected spec (RAM/Storage)
+        selectedGraphicCard: item.selectedGraphicCard, // Add selected graphic card
       })),
       order_date: new Date().toISOString(),
     };
@@ -43,6 +50,7 @@ const CreateOrderInSanity = async (cartData: Types[], customer_id: string) => {
     return response;
   } catch (error) {
     console.error("Error creating order:", error);
+    throw error; // Re-throw the error to handle it in the main function
   }
 };
 
@@ -56,16 +64,24 @@ export default async function CheckoutBack(cartData: Types[], customerInformatio
     }
 
     const parsedCart = JSON.parse(storedCart);
+
     // Create the customer in Sanity
     const customer = await CreateCustomerInSanity(customerInformation);
-    if (customer) {
-      // Create order in Sanity with cart data and customer reference
-      await CreateOrderInSanity(parsedCart, customer._id);
-    } else {
+    if (!customer) {
       throw new Error("Customer creation failed");
     }
+
+    // Create order in Sanity with cart data and customer reference
+    await CreateOrderInSanity(parsedCart, customer._id);
+
     console.log("Order placed successfully");
+
+    // Clear the cart after successful order placement
+    localStorage.removeItem("cart");
+
+    return { success: true, message: "Order placed successfully!" };
   } catch (error) {
     console.error("Error placing order:", error);
+    return { success: false, message: "Failed to place order. Please try again." };
   }
 }

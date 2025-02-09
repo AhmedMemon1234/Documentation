@@ -12,14 +12,14 @@ export const product = defineType({
       validation: (Rule) => Rule.required(),
     },
     {
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: {
-        source: "name", 
-        maxLength: 96,
-      },
-      validation: (Rule) => Rule.required(),
+        name: 'slug',
+        title: 'Slug',
+        type: 'slug',
+        options: {
+          source: 'name', // Automatically generate slug from the name field
+          maxLength: 200,
+        },
+        validation: (Rule) => Rule.required(),
     },
     {
       name: "description",
@@ -46,10 +46,12 @@ export const product = defineType({
         validation: (Rule) => Rule.required(),
       },
       {
-        name: "image",
-        title: "Image",
-        type: "image",
-        validation: (Rule) => Rule.required(),
+        name: 'image',
+        title: 'Image',
+        type: 'image',
+        options: {
+          hotspot: true,
+        },  
       },
       {
         name: "rating",

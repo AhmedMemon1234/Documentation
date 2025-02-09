@@ -1,12 +1,15 @@
-import Header from "../components/Header";
+"use client";
 
-export default function Login(){
-    return(
-        <>
-        <Header/>
-        <div className="w-full justify-center">
-            <h1 className="text-center text-5xl font-semibold mt-40">Work In Progress!!!</h1>
-        </div>
-        </>
-    )
-}
+import { SignIn } from "@clerk/clerk-react";
+
+const LoginPage = () => {
+  return (
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="p-8 rounded-lg">
+        <SignIn path="/login" routing="path" />
+      </div>
+    </div>
+  );
+};
+
+export default LoginPage;

@@ -46,9 +46,9 @@ export default function Home() {
       <Hero />
       <Featured />
       <div className="heading mt-20">
-        <h2>Featured Products</h2>
-        <h3>Bestseller Products</h3>
-        <p>Problems trying to resolve the conflict between</p>
+        <h2 className="text-center">Featured Products</h2>
+        <h3 className="text-center">Bestseller Products</h3>
+        <p className="text-center">Problems trying to resolve the conflict between</p>
       </div>
       <div className="flex-wrap flex justify-center">
         {products && products.length > 0 ? (

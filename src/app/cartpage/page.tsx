@@ -11,7 +11,6 @@ const CartItem = () => {
   const [cart, setCart] = useState<any[]>([]);
   const shippingFee = 50; // Fixed shipping fee
 
-
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
     if (storedCart) {
@@ -74,6 +73,35 @@ const CartItem = () => {
     router.push(`/Downproduct`);
   };
 
+  // Function to render product details based on type
+  const renderProductDetails = (product: any) => {
+    switch (product.type) {
+      case "clothes":
+        return (
+          <>
+            <h6 className="text-sm text-gray-800">Size: <strong className="ml-2">{product.selectedSize}</strong></h6>
+            <h6 className="text-sm text-gray-800">Color: <strong className="ml-2">{product.selectedColor}</strong></h6>
+          </>
+        );
+      case "pcs":
+        return (
+          <>
+            <h6 className="text-sm text-gray-800">RAM: <strong className="ml-2">{product.selectedSpec}</strong></h6>
+            <h6 className="text-sm text-gray-800">Graphics Card: <strong className="ml-2">{product.selectedGraphicCard}</strong></h6>
+          </>
+        );
+      case "mobiles":
+        return (
+          <>
+            <h6 className="text-sm text-gray-800">Storage: <strong className="ml-2">{product.selectedSpec}</strong></h6>
+            <h6 className="text-sm text-gray-800">Color: <strong className="ml-2">{product.selectedColor}</strong></h6>
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <DetailsHeader />
@@ -99,8 +127,7 @@ const CartItem = () => {
                     <div>
                       <h3 className="text-base font-bold text-gray-800 mb-1">{product.name}</h3>
                       <div className="space-y-1">
-                        <h6 className="text-sm text-gray-800">Size: <strong className="ml-2">{product.selectedSize}</strong></h6>
-                        <h6 className="text-sm text-gray-800">Color: <strong className="ml-2">{product.selectedColor}</strong></h6>
+                        {renderProductDetails(product)}
                       </div>
 
                       <div className="mt-6 flex flex-wrap gap-4">
@@ -113,7 +140,6 @@ const CartItem = () => {
                           </svg>
                           Remove
                         </button>
-                      
                       </div>
                     </div>
 
