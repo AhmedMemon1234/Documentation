@@ -150,7 +150,6 @@ const CombinedForm = () => {
       localStorage.removeItem("cart");
     } catch (error) {
       console.error("Error submitting the form", error);
-      toast.error("An error occurred while submitting the form.");
     }
   };
 
