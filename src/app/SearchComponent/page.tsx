@@ -8,7 +8,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { FaSearch } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-export const SearchHeader = () => {
+const SearchHeader = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
