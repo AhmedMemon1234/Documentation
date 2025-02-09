@@ -7,6 +7,11 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { FaSearch } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+
+
+
 
 const SearchHeader = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -14,6 +19,9 @@ const SearchHeader = () => {
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
   const [isFocused, setIsFocused] = useState(false);
 
+  const { isSignedIn } = useUser(); // Get the user's sign-in status
+  const router = useRouter()
+  
   useEffect(() => {
     const fetchData = async () => {
       const query = `*[_type == "product"] | order(_createdAt asc){
@@ -28,7 +36,14 @@ const SearchHeader = () => {
 
     fetchData();
   }, []);
-
+  const handleClick = (slug:string)=>{
+    if(!isSignedIn){
+       router.push("/login")
+    }
+    else{
+      router.push(`/productdetails/${slug}`);
+    }
+  }
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const term = event.target.value;
     setSearchTerm(term);
@@ -44,6 +59,7 @@ const SearchHeader = () => {
   };
 
   return (
+    
     <header className="absolute top-6 left-3 max-w-lg z-50"> {/* Left Side with Some Margin */}
       <motion.div 
         initial={{ width: "200px" }} 
@@ -72,6 +88,7 @@ const SearchHeader = () => {
         >
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
+              <div onClick={() => handleClick(product.slug)}>
               <Link href={`/productdetails/${product.slug}`} key={product.slug}>
                 <div className="flex items-center p-4 border-b hover:bg-gray-100">
                   <Image
@@ -86,6 +103,7 @@ const SearchHeader = () => {
                   </div>
                 </div>
               </Link>
+              </div>
             ))
           ) : (
             <div className="p-4 text-center text-gray-500">No products found</div>
