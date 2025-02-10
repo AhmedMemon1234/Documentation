@@ -1,0 +1,52 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:extend:20180424':
+    - clerk > superagent > extend:
+        patched: '2025-02-09T02:13:58.944Z'
+        id: 'npm:extend:20180424'
+        path: clerk > superagent > extend
+  'npm:hawk:20160119':
+    - clerk > follow > request > hawk:
+        patched: '2025-02-09T02:13:58.944Z'
+        id: 'npm:hawk:20160119'
+        path: clerk > follow > request > hawk
+  'npm:hoek:20180212':
+    - clerk > follow > request > hawk > hoek:
+        patched: '2025-02-09T02:13:58.944Z'
+        id: 'npm:hoek:20180212'
+        path: clerk > follow > request > hawk > hoek
+    - clerk > follow > request > hawk > boom > hoek:
+        patched: '2025-02-09T02:13:58.944Z'
+        id: 'npm:hoek:20180212'
+        path: clerk > follow > request > hawk > boom > hoek
+    - clerk > follow > request > hawk > sntp > hoek:
+        patched: '2025-02-09T02:13:58.944Z'
+        id: 'npm:hoek:20180212'
+        path: clerk > follow > request > hawk > sntp > hoek
+    - clerk > follow > request > hawk > cryptiles > boom > hoek:
+        patched: '2025-02-09T02:13:58.944Z'
+        id: 'npm:hoek:20180212'
+        path: clerk > follow > request > hawk > cryptiles > boom > hoek
+  'npm:http-signature:20150122':
+    - clerk > follow > request > http-signature:
+        patched: '2025-02-09T02:13:58.944Z'
+        id: 'npm:http-signature:20150122'
+        path: clerk > follow > request > http-signature
+  'npm:mime:20170907':
+    - clerk > superagent > mime:
+        patched: '2025-02-09T02:13:58.944Z'
+        id: 'npm:mime:20170907'
+        path: clerk > superagent > mime
+  'npm:request:20160119':
+    - clerk > follow > request:
+        patched: '2025-02-09T02:13:58.944Z'
+        id: 'npm:request:20160119'
+        path: clerk > follow > request
+  'npm:tunnel-agent:20170305':
+    - clerk > follow > request > tunnel-agent:
+        patched: '2025-02-09T02:13:58.944Z'
+        id: 'npm:tunnel-agent:20170305'
+        path: clerk > follow > request > tunnel-agent
