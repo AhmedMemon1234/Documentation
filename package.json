@@ -15,7 +15,7 @@
     "@clerk/shared": "^2.20.14",
     "@sanity/client": "^6.24.4",
     "@sanity/image-url": "^1.1.0",
-    "@sanity/vision": "^3.70.0",
+    "@sanity/vision": "^3.71.2",
     "@stripe/react-stripe-js": "^3.1.1",
     "@stripe/stripe-js": "^5.6.0",
     "axios": "^1.7.9",
